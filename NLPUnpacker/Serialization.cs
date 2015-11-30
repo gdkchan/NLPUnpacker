@@ -151,6 +151,7 @@ namespace NLPUnpacker
 
     public class SPNestedArray : SERIParameter
     {
+        [XmlArrayItem("Parameter")]
         public SERIParameter[] Values;
 
         public SPNestedArray(string Name, SERIParameter[] Values)
