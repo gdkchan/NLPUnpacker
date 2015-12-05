@@ -3,165 +3,157 @@ using System.Xml.Serialization;
 
 namespace NLPUnpacker
 {
-    [XmlInclude(typeof(SPString))]
-    [XmlInclude(typeof(SPInteger))]
-    [XmlInclude(typeof(SPBoolean))]
-    [XmlInclude(typeof(SPFloat))]
-    [XmlInclude(typeof(SPStringArray))]
-    [XmlInclude(typeof(SPIntegerArray))]
-    [XmlInclude(typeof(SPBooleanArray))]
-    [XmlInclude(typeof(SPFloatArray))]
-    [XmlInclude(typeof(SPNestedArray))]
+    [XmlInclude(typeof(String))]
+    [XmlInclude(typeof(Integer))]
+    [XmlInclude(typeof(Boolean))]
+    [XmlInclude(typeof(Float))]
+    [XmlInclude(typeof(StringArray))]
+    [XmlInclude(typeof(IntegerArray))]
+    [XmlInclude(typeof(BooleanArray))]
+    [XmlInclude(typeof(FloatArray))]
+    [XmlInclude(typeof(NestedArray))]
     public class SERIParameter
     {
         [XmlAttribute]
         public string Name;
-
-        [XmlAttribute]
-        public string Type;
     }
 
-    public class SPString : SERIParameter
+    public class String : SERIParameter
     {
         public string Value;
 
-        public SPString(string Name, string Value)
+        public String(string Name, string Value)
         {
             this.Name = Name;
-            Type = "String";
             this.Value = Value;
         }
 
-        public SPString()
+        public String()
         {
         }
     }
 
-    public class SPInteger : SERIParameter
+    public class Integer : SERIParameter
     {
         public int Value;
 
-        public SPInteger(string Name, int Value)
+        public Integer(string Name, int Value)
         {
             this.Name = Name;
-            Type = "Integer";
             this.Value = Value;
         }
 
-        public SPInteger()
+        public Integer()
         {
         }
     }
 
-    public class SPBoolean : SERIParameter
+    public class Boolean : SERIParameter
     {
         public bool Value;
 
-        public SPBoolean(string Name, bool Value)
+        public Boolean(string Name, bool Value)
         {
             this.Name = Name;
-            Type = "Boolean";
             this.Value = Value;
         }
 
-        public SPBoolean()
+        public Boolean()
         {
         }
     }
 
-    public class SPFloat : SERIParameter
+    public class Float : SERIParameter
     {
         public float Value;
 
-        public SPFloat(string Name, float Value)
+        public Float(string Name, float Value)
         {
             this.Name = Name;
-            Type = "Float";
             this.Value = Value;
         }
 
-        public SPFloat()
+        public Float()
         {
         }
     }
 
-    public class SPStringArray : SERIParameter
+    public class StringArray : SERIParameter
     {
+        [XmlArrayItem("Value")]
         public string[] Values;
 
-        public SPStringArray(string Name, string[] Values)
+        public StringArray(string Name, string[] Values)
         {
             this.Name = Name;
-            Type = "StringArray";
             this.Values = Values;
         }
 
-        public SPStringArray()
+        public StringArray()
         {
         }
     }
 
-    public class SPIntegerArray : SERIParameter
+    public class IntegerArray : SERIParameter
     {
+        [XmlArrayItem("Value")]
         public int[] Values;
 
-        public SPIntegerArray(string Name, int[] Values)
+        public IntegerArray(string Name, int[] Values)
         {
             this.Name = Name;
-            Type = "IntegerArray";
             this.Values = Values;
         }
 
-        public SPIntegerArray()
+        public IntegerArray()
         {
         }
     }
 
-    public class SPBooleanArray : SERIParameter
+    public class BooleanArray : SERIParameter
     {
+        [XmlArrayItem("Value")]
         public bool[] Values;
 
-        public SPBooleanArray(string Name, bool[] Values)
+        public BooleanArray(string Name, bool[] Values)
         {
             this.Name = Name;
-            Type = "BooleanArray";
             this.Values = Values;
         }
 
-        public SPBooleanArray()
+        public BooleanArray()
         {
         }
     }
 
-    public class SPFloatArray : SERIParameter
+    public class FloatArray : SERIParameter
     {
+        [XmlArrayItem("Value")]
         public float[] Values;
 
-        public SPFloatArray(string Name, float[] Values)
+        public FloatArray(string Name, float[] Values)
         {
             this.Name = Name;
-            Type = "FloatArray";
             this.Values = Values;
         }
 
-        public SPFloatArray()
+        public FloatArray()
         {
         }
     }
 
-    public class SPNestedArray : SERIParameter
+    public class NestedArray : SERIParameter
     {
         [XmlArrayItem("Parameter")]
         public SERIParameter[] Values;
 
-        public SPNestedArray(string Name, SERIParameter[] Values)
+        public NestedArray(string Name, SERIParameter[] Values)
         {
             this.Name = Name;
-            Type = "NestedArray";
             this.Values = Values;
         }
 
-        public SPNestedArray()
+        public NestedArray()
         {
         }
     }

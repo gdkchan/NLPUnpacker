@@ -17,7 +17,7 @@ namespace NLPUnpacker
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("[NLPUnpacker] New Love Plus for 3DS \"img.bin\" unpacker");
             Console.WriteLine("Made by gdkchan");
-            Console.WriteLine("Version 0.1.3");
+            Console.WriteLine("Version 0.1.4");
             Console.Write(Environment.NewLine);
             Console.ResetColor();
 
@@ -200,7 +200,7 @@ namespace NLPUnpacker
             {
                 case 's': //String
                     string NameValue = ReadNullTerminatedString(Reader, StringTableOffset + ValueOffset);
-                    return new SPString(Name, NameValue);
+                    return new String(Name, NameValue);
                 case 'i': //Integer
                     Reader.BaseStream.Seek(ValuesOffset + ValueOffset, SeekOrigin.Begin);
                     int IntValue = Reader.ReadInt32();
@@ -212,17 +212,17 @@ namespace NLPUnpacker
                         case "tex":
                         case "hair_length":
                             Reader.BaseStream.Seek(StringPointersOffset + (IntValue - 1) * 4, SeekOrigin.Begin);
-                            return new SPString(Name, ReadNullTerminatedString(Reader, StringTableOffset + Reader.ReadUInt32()));
-                        default: return new SPInteger(Name, IntValue);
+                            return new String(Name, ReadNullTerminatedString(Reader, StringTableOffset + Reader.ReadUInt32()));
+                        default: return new Integer(Name, IntValue);
                     }
                 case 'b': //Boolean
                     Reader.BaseStream.Seek(ValuesOffset + ValueOffset, SeekOrigin.Begin);
                     bool BooleanValue = Reader.ReadByte() == 1;
-                    return new SPBoolean(Name, BooleanValue);
+                    return new Boolean(Name, BooleanValue);
                 case 'f': //Float
                     Reader.BaseStream.Seek(ValuesOffset + ValueOffset, SeekOrigin.Begin);
                     float FloatValue = Reader.ReadSingle();
-                    return new SPFloat(Name, FloatValue);
+                    return new Float(Name, FloatValue);
                 case 'a': //Array
                     Reader.BaseStream.Seek(ValuesOffset + ValueOffset, SeekOrigin.Begin);
                     return ParseSERIArray(Reader,
@@ -258,7 +258,7 @@ namespace NLPUnpacker
                         StringArray[i] = ItemName;
                     }
 
-                    return new SPStringArray(Name, StringArray);
+                    return new StringArray(Name, StringArray);
                 case 'i': //Of Integer
                     switch (Name)
                     {
@@ -276,7 +276,7 @@ namespace NLPUnpacker
                                 NameArray[i] = ItemName;
                             }
 
-                            return new SPStringArray(Name, NameArray);
+                            return new StringArray(Name, NameArray);
                         default:
                             int[] IntArray = new int[ArrayLength];
 
@@ -286,7 +286,7 @@ namespace NLPUnpacker
                                 IntArray[i] = Reader.ReadInt32();
                             }
 
-                            return new SPIntegerArray(Name, IntArray);
+                            return new IntegerArray(Name, IntArray);
                     }
                 case 'b': //Of Boolean
                     bool[] BooleanArray = new bool[ArrayLength];
@@ -297,7 +297,7 @@ namespace NLPUnpacker
                         BooleanArray[i] = Reader.ReadByte() == 1;
                     }
 
-                    return new SPBooleanArray(Name, BooleanArray);
+                    return new BooleanArray(Name, BooleanArray);
                 case 'f': //Of Float
                     float[] FloatArray = new float[ArrayLength];
 
@@ -307,7 +307,7 @@ namespace NLPUnpacker
                         FloatArray[i] = Reader.ReadSingle();
                     }
 
-                    return new SPFloatArray(Name, FloatArray);
+                    return new FloatArray(Name, FloatArray);
                 case 'h': //Of Array
                     SERIParameter[] NestedArray = new SERIParameter[ArrayLength];
 
@@ -336,10 +336,10 @@ namespace NLPUnpacker
                                 ArrayName);
                         }
 
-                        NestedArray[i] = new SPNestedArray(null, Arrays);
+                        NestedArray[i] = new NestedArray(null, Arrays);
                     }
 
-                    return new SPNestedArray(Name, NestedArray);
+                    return new NestedArray(Name, NestedArray);
             }
 
             return null;
